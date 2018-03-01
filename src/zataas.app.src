@@ -1,0 +1,23 @@
+{application, zataas,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { zataas_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    elli,
+    jsx,
+    supervisor3,
+    kafka_protocol,
+    brod,
+    worker_pool,
+    uuid
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
