@@ -12,7 +12,9 @@
     kafka_protocol,
     brod,
     worker_pool,
-    uuid
+    uuid,
+    gen_smtp,
+    mnesia
    ]},
   {env,[]},
   {modules, []},
