@@ -41,9 +41,9 @@ push_to_iq(Event)->
 	zataas_mnesia_if:write(Rec).
 
 run_events_from_iq()->
-	Events = zataas_mnesia_if:read_all(iq_events_table),
+	Events = zataas_mnesia_if:select(iq_events_table,[{{'_','_','_','$1'},[],['$1']}]),
 	clear_iq_layer(),
 	[zataas_kafka_brod_if:send(X)|| {_,_,X} <- Events].
 
 clear_iq_layer()->
-	zataas_mnesia_if:delete_all().
+	zataas_mnesia_if:clear_table().
