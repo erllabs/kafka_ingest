@@ -13,13 +13,11 @@ handle('GET',[<<"hello">>, <<"world">>], _Req) ->
     %% to signal success.
     {ok, [], <<"Hello World!">>};
 
-handle('POST',[<<"api">>,<<"v1">>, <<"kafka">>], Req) ->
-	io:format("The req body : ~p",[Req]),
+handle('POST',[<<"api">>,<<"v1">>, <<"kafka">>,Topic], Req) ->
 	Event = jsx:decode(elli_request:body(Req)),
-	io:format("The req body : ~p",[Event]),
-    %% Reply with a normal response. 'ok' can be used instead of '200'
+	%% Reply with a normal response. 'ok' can be used instead of '200'
     %% to signal success.
-    ok = zataas_kafka:send_event_to_mq(Event),
+    ok = zataas_kafka:send_event_to_mq(Event,Topic),
     {ok, [], <<"ok">>};
 
 handle(_, _, _Req) ->

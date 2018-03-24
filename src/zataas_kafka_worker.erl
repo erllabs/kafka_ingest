@@ -12,14 +12,14 @@
          ]).
 
 -export([start_link/0,
-         send_event/1
+         send_event/2
         ]).
 
 start_link() ->
   gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
-send_event(Event) ->
-  wpool:cast(zataas_kafka_pool, {send_event_to_mq, Event}).
+send_event(Event,Topic) ->
+  wpool:cast(zataas_kafka_pool, {send_event_to_mq, Event,Topic}).
 
 init(_Args) ->
   {ok, []}.
@@ -27,8 +27,8 @@ init(_Args) ->
 handle_call(_, _From, State) ->
   {noreply, State}.
 
-handle_cast({send_event_to_mq, Event}, State) ->
-  zataas_kafka_brod_if:send(Event),
+handle_cast({send_event_to_mq, Event,Topic}, State) ->
+  zataas_kafka_brod_if:send(Event,Topic),
   {noreply, State};
 
 handle_cast(stop, State) ->

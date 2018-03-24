@@ -6,6 +6,7 @@
   {applications,
    [kernel,
     stdlib,
+    observer,
     elli,
     jsx,
     supervisor3,
